@@ -25,7 +25,7 @@ import {
   Typography,
 } from "@mui/material";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -132,18 +132,32 @@ export default function Workbench() {
     <Box component="main" sx={{ minHeight: "100vh", pb: 10 }}>
       <Box component="header" sx={{ borderBottom: "1px solid", borderColor: "divider", bgcolor: "rgba(255,255,255,.72)", backdropFilter: "blur(16px)" }}>
         <Container maxWidth="lg">
-          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ minHeight: 72 }}>
-            <Stack direction="row" spacing={1.5} alignItems="center">
+          <Stack
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              minHeight: 72
+            }}>
+            <Stack direction="row" spacing={1.5} sx={{
+              alignItems: "center"
+            }}>
               <Box sx={{ width: 38, height: 38, borderRadius: 2.5, display: "grid", placeItems: "center", color: "white", bgcolor: "primary.main" }}>
                 <FactCheckOutlinedIcon />
               </Box>
               <Box>
-                <Typography fontWeight={800} letterSpacing="-.02em">EvidenceRAG</Typography>
-                <Typography variant="caption" color="text.secondary">IA aplicada · respuestas verificables</Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 800,
+                    letterSpacing: "-.02em"
+                  }}>EvidenceRAG</Typography>
+                <Typography variant="caption" sx={{
+                  color: "text.secondary"
+                }}>IA aplicada · respuestas verificables</Typography>
               </Box>
             </Stack>
             <Chip
-              icon={<CheckCircleOutlineIcon />}
+              icon={<CheckCircleOutlinedIcon />}
               label={config ? `${config.provider === "mock" ? "Demo local" : "OpenAI"} · operativo` : "Conectando"}
               color={config ? "success" : "default"}
               variant="outlined"
@@ -163,9 +177,15 @@ export default function Workbench() {
             Asistente documental verificable para consultar información institucional y regulatoria utilizando únicamente fuentes públicas. Cada respuesta expone fuente, ubicación y fragmento; si el respaldo no alcanza, el sistema lo dice.
           </Typography>
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2.5} sx={{ mt: 3.5 }}>
-            <Stack direction="row" spacing={1} alignItems="center"><ShieldOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Sin datos confidenciales</Typography></Stack>
-            <Stack direction="row" spacing={1} alignItems="center"><FactCheckOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Citas revisables</Typography></Stack>
-            <Stack direction="row" spacing={1} alignItems="center"><QueryStatsOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Métricas visibles</Typography></Stack>
+            <Stack direction="row" spacing={1} sx={{
+              alignItems: "center"
+            }}><ShieldOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Sin datos confidenciales</Typography></Stack>
+            <Stack direction="row" spacing={1} sx={{
+              alignItems: "center"
+            }}><FactCheckOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Citas revisables</Typography></Stack>
+            <Stack direction="row" spacing={1} sx={{
+              alignItems: "center"
+            }}><QueryStatsOutlinedIcon color="primary" fontSize="small" /><Typography variant="body2">Métricas visibles</Typography></Stack>
           </Stack>
         </Box>
 
@@ -182,14 +202,29 @@ export default function Workbench() {
         <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0, 0.78fr) minmax(0, 1.42fr)" }, gap: 3, alignItems: "start" }}>
           <Card>
             <CardContent sx={{ p: { xs: 2.5, md: 3.5 } }}>
-              <Stack direction="row" justifyContent="space-between" alignItems="start">
+              <Stack
+                direction="row"
+                sx={{
+                  justifyContent: "space-between",
+                  alignItems: "start"
+                }}>
                 <Box>
-                  <Typography variant="overline" color="primary.main" fontWeight={800}>01 · Corpus</Typography>
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 800
+                    }}>01 · Corpus</Typography>
                   <Typography variant="h3" sx={{ fontSize: "1.45rem", mt: .5 }}>Documentos</Typography>
                 </Box>
                 <Chip label={`${availableDocuments.length} disponibles`} size="small" />
               </Stack>
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 1.2 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  mt: 1.2
+                }}>
                 PDF o texto público, hasta {formatBytes(config?.max_upload_bytes ?? 10 * 1024 * 1024)}.
               </Typography>
 
@@ -204,16 +239,34 @@ export default function Workbench() {
               ) : documents.length === 0 ? (
                 <Box sx={{ py: 3, textAlign: "center" }}>
                   <DescriptionOutlinedIcon sx={{ color: "text.disabled", fontSize: 42 }} />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>Aún no hay documentos.</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      mt: 1
+                    }}>Aún no hay documentos.</Typography>
                 </Box>
               ) : (
                 <Stack spacing={1.2}>
                   {documents.slice(0, 8).map((document) => (
-                    <Stack key={document.id} direction="row" spacing={1.4} alignItems="center" sx={{ p: 1.4, borderRadius: 2, bgcolor: "rgba(0,111,92,.045)" }}>
+                    <Stack
+                      key={document.id}
+                      direction="row"
+                      spacing={1.4}
+                      sx={{
+                        alignItems: "center",
+                        p: 1.4,
+                        borderRadius: 2,
+                        bgcolor: "rgba(0,111,92,.045)"
+                      }}>
                       <DescriptionOutlinedIcon color="primary" fontSize="small" />
                       <Box sx={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="body2" fontWeight={700} noWrap title={document.filename}>{document.filename}</Typography>
-                        <Typography variant="caption" color="text.secondary">{document.chunk_count} fragmentos · {formatBytes(document.size_bytes)}</Typography>
+                        <Typography variant="body2" noWrap title={document.filename} sx={{
+                          fontWeight: 700
+                        }}>{document.filename}</Typography>
+                        <Typography variant="caption" sx={{
+                          color: "text.secondary"
+                        }}>{document.chunk_count} fragmentos · {formatBytes(document.size_bytes)}</Typography>
                       </Box>
                       <Chip label={document.status === "available" ? "Listo" : document.status} color={document.status === "available" ? "success" : "default"} size="small" variant="outlined" />
                     </Stack>
@@ -226,7 +279,12 @@ export default function Workbench() {
           <Stack spacing={3}>
             <Card>
               <CardContent sx={{ p: { xs: 2.5, md: 3.5 } }}>
-                <Typography variant="overline" color="primary.main" fontWeight={800}>02 · Consulta</Typography>
+                <Typography
+                  variant="overline"
+                  sx={{
+                    color: "primary.main",
+                    fontWeight: 800
+                  }}>02 · Consulta</Typography>
                 <Typography variant="h3" sx={{ fontSize: "1.45rem", mt: .5 }}>Pregunta sobre la evidencia</Typography>
                 <Box component="form" onSubmit={handleQuestion} sx={{ mt: 2.5 }}>
                   <TextField
@@ -237,13 +295,27 @@ export default function Workbench() {
                     minRows={3}
                     fullWidth
                     disabled={asking || availableDocuments.length === 0}
-                    inputProps={{ maxLength: 2000 }}
+                    slotProps={{
+                      htmlInput: { maxLength: 2000 }
+                    }}
                   />
                   <Box sx={{ mt: 1.5 }}>
-                    <Typography variant="caption" color="text.secondary" fontWeight={700}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "text.secondary",
+                        fontWeight: 700
+                      }}>
                       Preguntas sugeridas
                     </Typography>
-                    <Stack direction="row" flexWrap="wrap" useFlexGap spacing={1} sx={{ mt: 1 }}>
+                    <Stack
+                      direction="row"
+                      useFlexGap
+                      spacing={1}
+                      sx={{
+                        flexWrap: "wrap",
+                        mt: 1
+                      }}>
                       {SUGGESTED_QUESTIONS.map((suggestion) => (
                         <Button
                           key={suggestion}
@@ -259,7 +331,14 @@ export default function Workbench() {
                       ))}
                     </Stack>
                   </Box>
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="space-between" alignItems={{ xs: "stretch", sm: "center" }} sx={{ mt: 2 }}>
+                  <Stack
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={2}
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: { xs: "stretch", sm: "center" },
+                      mt: 2
+                    }}>
                     <FormControl size="small" sx={{ minWidth: 130 }}>
                       <InputLabel id="top-k-label">Fuentes</InputLabel>
                       <Select labelId="top-k-label" label="Fuentes" value={topK} onChange={(event) => setTopK(Number(event.target.value))}>
@@ -270,7 +349,13 @@ export default function Workbench() {
                       {asking ? "Buscando evidencia…" : "Responder con evidencia"}
                     </Button>
                   </Stack>
-                  {availableDocuments.length === 0 && <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 1.5 }}>Carga al menos un documento para habilitar las consultas.</Typography>}
+                  {availableDocuments.length === 0 && <Typography
+                    variant="caption"
+                    sx={{
+                      color: "text.secondary",
+                      display: "block",
+                      mt: 1.5
+                    }}>Carga al menos un documento para habilitar las consultas.</Typography>}
                 </Box>
               </CardContent>
             </Card>
@@ -278,13 +363,26 @@ export default function Workbench() {
             {result && (
               <Card sx={{ borderColor: result.evidence_sufficient ? "rgba(0,111,92,.3)" : "rgba(217,119,6,.35)" }}>
                 <CardContent sx={{ p: { xs: 2.5, md: 3.5 } }}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                    <Chip icon={result.evidence_sufficient ? <CheckCircleOutlineIcon /> : <ShieldOutlinedIcon />} label={result.evidence_sufficient ? "Evidencia suficiente" : "Evidencia insuficiente"} color={result.evidence_sufficient ? "success" : "warning"} />
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}>
+                    <Chip icon={result.evidence_sufficient ? <CheckCircleOutlinedIcon /> : <ShieldOutlinedIcon />} label={result.evidence_sufficient ? "Evidencia suficiente" : "Evidencia insuficiente"} color={result.evidence_sufficient ? "success" : "warning"} />
                     <Tooltip title="Copiar respuesta"><IconButton aria-label="Copiar respuesta" onClick={() => navigator.clipboard.writeText(result.answer)}><ContentCopyOutlinedIcon fontSize="small" /></IconButton></Tooltip>
                   </Stack>
                   <Typography sx={{ mt: 2.5, fontSize: "1.08rem", lineHeight: 1.75 }}>{result.answer}</Typography>
 
-                  <Stack direction="row" flexWrap="wrap" useFlexGap spacing={1} sx={{ mt: 2.5 }}>
+                  <Stack
+                    direction="row"
+                    useFlexGap
+                    spacing={1}
+                    sx={{
+                      flexWrap: "wrap",
+                      mt: 2.5
+                    }}>
                     <Chip size="small" label={`${result.metrics.total_ms.toFixed(0)} ms total`} variant="outlined" />
                     <Chip size="small" label={`${result.metrics.retrieval_ms.toFixed(0)} ms retrieval`} variant="outlined" />
                     <Chip size="small" label={`${result.metrics.input_tokens + result.metrics.output_tokens} tokens LLM`} variant="outlined" />
@@ -293,16 +391,40 @@ export default function Workbench() {
 
                   {result.citations.length > 0 && (
                     <Box sx={{ mt: 3 }}>
-                      <Typography variant="subtitle2" fontWeight={800} sx={{ mb: 1 }}>Fuentes recuperadas</Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          fontWeight: 800,
+                          mb: 1
+                        }}>Fuentes recuperadas</Typography>
                       {result.citations.map((citation) => (
                         <Accordion key={citation.id} disableGutters elevation={0} sx={{ borderTop: "1px solid", borderColor: "divider", "&:before": { display: "none" } }}>
                           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Stack direction="row" spacing={1.2} alignItems="center" sx={{ minWidth: 0, width: "100%" }}>
+                            <Stack
+                              direction="row"
+                              spacing={1.2}
+                              sx={{
+                                alignItems: "center",
+                                minWidth: 0,
+                                width: "100%"
+                              }}>
                               <Chip label={citation.id} color="primary" size="small" />
-                              <Box sx={{ minWidth: 0, flex: 1 }}><Typography variant="body2" fontWeight={700} noWrap>{citation.document}</Typography><Typography variant="caption" color="text.secondary">{locationLabel(citation.page, citation.section)} · relevancia {(citation.score * 100).toFixed(1)}%</Typography></Box>
+                              <Box sx={{ minWidth: 0, flex: 1 }}><Typography variant="body2" noWrap sx={{
+                                fontWeight: 700
+                              }}>{citation.document}</Typography><Typography variant="caption" sx={{
+                                color: "text.secondary"
+                              }}>{locationLabel(citation.page, citation.section)} · relevancia {(citation.score * 100).toFixed(1)}%</Typography></Box>
                             </Stack>
                           </AccordionSummary>
-                          <AccordionDetails><Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, borderLeft: "3px solid", borderColor: "primary.light", pl: 2 }}>{citation.snippet}</Typography></AccordionDetails>
+                          <AccordionDetails><Typography
+                            variant="body2"
+                            sx={{
+                              color: "text.secondary",
+                              lineHeight: 1.7,
+                              borderLeft: "3px solid",
+                              borderColor: "primary.light",
+                              pl: 2
+                            }}>{citation.snippet}</Typography></AccordionDetails>
                         </Accordion>
                       ))}
                     </Box>

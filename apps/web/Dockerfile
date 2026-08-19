@@ -1,7 +1,7 @@
 FROM node:24-alpine AS dependencies
 WORKDIR /app
 RUN corepack enable
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN if [ -f pnpm-lock.yaml ]; then \
       pnpm install --frozen-lockfile; \
     else \
