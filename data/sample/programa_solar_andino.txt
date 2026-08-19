@@ -1,0 +1,15 @@
+# Resumen ejecutivo
+
+El Programa Solar Andino es una iniciativa demostrativa creada para este portafolio. Su meta es instalar 120 kilovatios de capacidad solar antes del 31 de diciembre de 2027. Los recintos participantes en la primera etapa son tres escuelas rurales y un centro comunitario de la Región de Coquimbo.
+
+# Continuidad energética
+
+Cada instalación tendrá baterías con una autonomía objetivo de ocho horas para cargas críticas. Las cargas críticas incluyen iluminación de emergencia, comunicaciones y refrigeración de medicamentos. Si la autonomía medida baja de seis horas, el operador debe abrir una revisión técnica dentro de dos días hábiles.
+
+# Presupuesto y responsables
+
+El presupuesto referencial del piloto es de 185 millones de pesos chilenos. La Unidad de Sostenibilidad coordina el programa y la empresa instaladora responde por la puesta en marcha. Cada recinto designa además un encargado local de operación.
+
+# Seguimiento
+
+La meta de desempeño es reducir al menos un 25 por ciento el consumo anual de energía de la red en los recintos participantes. El mantenimiento preventivo se realiza dos veces al año y la producción energética se audita anualmente.

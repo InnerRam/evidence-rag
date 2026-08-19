@@ -1,0 +1,10 @@
+{"id":"lh-ai-01","type":"answerable","question":"¿Cómo se utilizaron la IA y Machine Learning durante 2025?","expected_pages":[66],"key_terms":["validación automática","créditos sociales","servicio"]}
+{"id":"lh-digital-01","type":"answerable","question":"¿Qué servicios y portales digitales se actualizaron o integraron?","expected_pages":[66],"key_terms":["sucursal virtual","aplicación móvil","transacciones remotas"]}
+{"id":"lh-scale-01","type":"answerable","question":"¿Cuántos afiliados y empresas afiliadas se reportaron en 2025?","expected_pages":[9,62],"key_terms":["1.176.162","9.387"]}
+{"id":"lh-callcenter-01","type":"answerable","question":"¿Cuántas llamadas atendió el call center en 2025 y para qué?","expected_pages":[64],"key_terms":["305.949","consultas","reclamos"]}
+{"id":"lh-reclamos-01","type":"answerable","question":"¿Cómo se gestionan y trazan las solicitudes y los reclamos?","expected_pages":[65],"key_terms":["Circular N°3796","sistema integral","SLA"]}
+{"id":"lh-reguladores-01","type":"answerable","question":"¿Qué reguladores aparecen vinculados a la gestión de requerimientos?","expected_pages":[65],"key_terms":["SERNAC","SUSESO","CMF"]}
+{"id":"lh-innovacion-01","type":"answerable","question":"¿Qué mecanismos se describen para impulsar proyectos de innovación?","expected_pages":[66],"key_terms":["equipos multidisciplinarios","experimentación"]}
+{"id":"lh-ips-01","type":"answerable","question":"¿Cuántos pagos de pensiones IPS se realizaron en sucursales?","expected_pages":[9,62],"key_terms":["7.249.375"]}
+{"id":"lh-digital-scope-01","type":"unanswerable","question":"¿Qué servicios ofrece específicamente Los Héroes Digital?","expected_pages":[],"key_terms":[]}
+{"id":"lh-cloud-01","type":"unanswerable","question":"¿Qué proveedor de nube y qué modelos de IA usa la organización?","expected_pages":[],"key_terms":[]}

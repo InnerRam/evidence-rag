@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-08-18T20:01:55.776405+00:00",
+  "api_url": "http://127.0.0.1:8770/api/v1",
+  "top_k": 5,
+  "metrics": {
+    "case_count": 10,
+    "pass_rate": 1.0,
+    "answerable_page_recall": 1.0,
+    "mean_key_term_coverage": 1.0,
+    "unanswerable_rejection_rate": 1.0,
+    "median_latency_ms": 412.055
+  },
+  "cases": [
+    {
+      "id": "lh-ai-01",
+      "type": "answerable",
+      "question": "¿Cómo se utilizaron la IA y Machine Learning durante 2025?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        66,
+        66,
+        186,
+        178,
+        101
+      ],
+      "latency_ms": 483.31,
+      "answer": "Iniciativas impulsadas en 2025: Durante el año profundizamos el uso de la IA (Inteligencia Artificial) y de Machine Learning, lo que permitió mejorar la validación automática de créditos sociales y el servicio a los(as) afiliados(as). Machine Learning, lo que permitió mejorar la validación automática de créditos sociales y el servicio a los(as) afiliados(as). Resumen de Hechos Esenciales del Período Hechos Esenciales Informados Durante el período 2025 (actual): Durante el período transcurrido entre el 1º de enero y el 31 de diciembre de 2025 se informó a la Comisión para el Mercado Financiero los siguientes hechos esenciales: Con fecha 1 de abril de 2025, CCAF Los Héroes colocó en el mercado financiero efectos de comercio emitidos con carga a la línea N°150 inscrita en el registro de la Comisión para el Mercado Financiero, cuyas características principales son las siguientes: Serie ONHER-090625 • Monto: CLP$5.000.000.000 • Tasa de colocación: 0,491 • Alto desempleo y estancamiento económico: durante el año, la tasa de desempleo se mantuvo sobre el 8% de desocupación (cerró 2025 en 8,4%), lo que impactó en la industria de las Cajas, por la relación directa con aquellos(as) trabajadores(as) dependientes, con contrato de trabajo."
+    },
+    {
+      "id": "lh-digital-01",
+      "type": "answerable",
+      "question": "¿Qué servicios y portales digitales se actualizaron o integraron?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        66,
+        286,
+        299,
+        286,
+        229
+      ],
+      "latency_ms": 400.97,
+      "answer": "Adicionalmente, se actualizaron y ampliaron los servicios ofrecidos a través de la sucursal virtual y la aplicación móvil, junto con la integración de los portales de beneficios y de transacciones remotas. Los costos por beneficios definidos se categorizan como sigue: Costo por servicios (incluyendo el costo por servicios actuales, costo por servicios pasados, así como también las ganancias o pérdidas por reducciones y liquidaciones); Gasto o ingreso por interés neto; y remedición. Esto permitió optimizar la entrega de información y beneficios, consolidando los canales digitales como ejes clave de la atención. de seguros de Vida 76.034.737-k Servicios de recaudación primas de seguros 11.478 18.145 Mutuales de seguridad Servicios Ley Sanna 41.555 24.355 Varios deudores Prestaciones complementarias 57.790 144.387 Varias compañías de seguros Servicio recaudación primas de seguros 190 32.421 BCI seguros generales S.A."
+    },
+    {
+      "id": "lh-scale-01",
+      "type": "answerable",
+      "question": "¿Cuántos afiliados y empresas afiliadas se reportaron en 2025?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        65,
+        21,
+        9,
+        5,
+        77
+      ],
+      "latency_ms": 411.81,
+      "answer": "N° total de afiliados(as) CCAF 2025 2024 2023 2022 Los Andes 4.420.084 4.249.769 4.112.084 4.122.703 La Araucana 1.349.177 1.330.132 1.343.868 1.362.189 Los Héroes 1.176.162 1.180.164 1.185.060 1.181.449 18 de septiembre 436.660 425.014 418.571 421.874 Total 7.382.083 7.185.079 7.059.583 7.088.215 Fuente: SUSESO diciembre 2025 N° de empresas afiliadas CCAF 2025 2024 2023 2022 Los Andes 55.254 55.774 55.712 55.685 Los Héroes 9.387 9.907 10.151 10.518 La Araucana 8.520 8.399 8.460 8.420 18 de septiembre 7.652 8.111 8.447 8.862 Total 80.813 82.191 82.770 83.485 Fuente: SUSESO diciembre 2025 N° to Afiliados Proveedores Colaboradores Comunidad y medio ambiente Reconocimientos Usuarios IPS 1.176.162 afiliados(as) 634 proveedores 96,7% en menos de 30 días 487.624 trabajadores(as) 1.626 colaboradores 151 sucursales en el país 12 puntos de atención 135.756 visitas a cabañas y centros vacacionales 111,47 hectáreas de parques SelloMayor 1° Lugar EmpatIA Sello Huella Excelencia 16 semanas capacitación a líderes sociales 50 + 1.041 mujeres 585 hombres 15 años apoyando al IPS en el pago de beneficios 688.538 pensionados(as) 5.268 facturas pagadas 825.049 usuarios(as) 630.158 pago pensiones red mó En 2025 partió la metodología “Cliente al Centro”, que integra la voz de los(as) afiliados(as) en el diseño de cada producto y proceso, asegurando experiencias coherentes y un marco común para empresas, afiliados(as) y pensionados(as). Lo que comenzó hace siete décadas como una pequeña caja gremial con 6.000 afiliados, ha evolucionado hoy en una institución de alcance nacional con 1.176.162 beneficiarios(as), entre trabajadores(as) y pensionados(as), y 9.387 empresas afiliadas."
+    },
+    {
+      "id": "lh-callcenter-01",
+      "type": "answerable",
+      "question": "¿Cuántas llamadas atendió el call center en 2025 y para qué?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        64,
+        64,
+        75,
+        112,
+        339
+      ],
+      "latency_ms": 407.78,
+      "answer": "151 sucursales entre Arica y Punta Arenas 1.319 puntos de pago rural En 2025, nuestro call center atendió 305.949 llamadas para la resolución de consultas, solicitudes, sugerencias y reclamos. Call center (números 600): Contamos con 60 ejecutivos(as) de atención a disposición de resolver dudas y necesidades de nuestros(as) afiliados, así como llamadas de acompañamiento a pensionados(as). Grupo de interés Sucursal virtual Call Center Ejecutivos presenciales Eventos Iniciativas sociales Mailings corporativos Comunicados internos Reuniones Gestión de prensa Afiliados(as) x x x x x x Usuarios(as) públicos y privados x x x x x X Colaboradores(as) x x x x Comunidad x x x x X Autoridades x x x Mercado de capitales x x x Gremios de empresas x x x Proveedores x x x x Opinión pública x x x x ONG y fundaciones x x x x Formas de relacionamiento Introducción | Somos Los Héroes | Gobierno Corporativo | Modelo de atención | Valor social | Nuestra organización | Información Financiera | Anexo Notas a los Estados Financieros Consolidados Al 31 de diciembre de 2025 y 2024 145 Nota 31 - Otros Gastos por Naturaleza (continuación) (1) Prestaciones adicionales (continuación) El detalle de los otros gastos por naturaleza al 31 de diciembre de 2025 y 2024 es el siguiente: Detalle de gastos por Prestaciones adicionales por tipo de afiliado: Acumulado Trabajador 01.01.2025 01.01.2024 31.12.2025 31.12.2024 M$ M$ Bono natalidad (117.122) (109.579) Bono nupcialidad (59.012) (51.325) Bono fallecimiento (60.330) (59.790) Estímulos académicos (309.595) (264.362) Prestaciones de salud, instituciona"
+    },
+    {
+      "id": "lh-reclamos-01",
+      "type": "answerable",
+      "question": "¿Cómo se gestionan y trazan las solicitudes y los reclamos?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        65,
+        65,
+        64,
+        56,
+        165
+      ],
+      "latency_ms": 426.92,
+      "answer": "El modelo se sustenta en la Circular N°3796 sobre Relacionamiento con los Afiliados de la SUSESO y en un sistema integral que permite recibir, registrar y gestionar reclamos, consultas, solicitudes y felicitaciones, asegurando el cumplimiento de los plazos comprometidos (SLA) con el(la) afiliado(a). Gestión de solicitudes y reclamos (CMF 8.1) Este ámbito es un componente clave en la experiencia de los(as) afiliados(as). 151 sucursales entre Arica y Punta Arenas 1.319 puntos de pago rural En 2025, nuestro call center atendió 305.949 llamadas para la resolución de consultas, solicitudes, sugerencias y reclamos. • Foco en la eficiencia, para simplificar los tiempos de respuesta a consultas, solicitudes y gestión de beneficios de las empresas afiliadas."
+    },
+    {
+      "id": "lh-reguladores-01",
+      "type": "answerable",
+      "question": "¿Qué reguladores aparecen vinculados a la gestión de requerimientos?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        65,
+        261,
+        51,
+        204,
+        244
+      ],
+      "latency_ms": 411.53,
+      "answer": "Mediante este sistema se gestionan requerimientos ingresados a través de los canales propios y de nuestros reguladores (SERNAC, SUSESO y CMF), asegurando el cumplimiento en plazo y forma. La función del Comité de Auditoría respecto a la gestión de riesgo es velar por el fiel cumplimiento de las normas impartidas por la Administración y los organismos reguladores de forma tal de mantener un ambiente de control interno confiable y efectivo en la organización. Las interacciones se registran en una plataforma centralizada, lo que permite un monitoreo continuo de los casos, así como la comunicación del resultado de la gestión al afiliado(a), a través de correo electrónico. ad de la información y ciberseguridad, Los Héroes CCAF ha implementado un Modelo de Gestión de Rie sgo Operacional que funciona a través de los siguientes pilares de trabajo: > Gestión de Riesgo Operacional sobre procesos y proyectos relevantes."
+    },
+    {
+      "id": "lh-innovacion-01",
+      "type": "answerable",
+      "question": "¿Qué mecanismos se describen para impulsar proyectos de innovación?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        66,
+        27,
+        15,
+        16,
+        27
+      ],
+      "latency_ms": 398.85,
+      "answer": "Asimismo, se habilitan equipos multidisciplinarios que trabajan de manera autónoma y flexible para acelerar el desarrollo y la implementación de proyectos innovadores. Innovación para potenciar nuestro ecosistema 3.4. Los Héroes fomenta la innovación a través de diversas estrategias y áreas encargadas de identificar y desarrollar nuevas oportunidades tecnológicas y de desarrollo. (CMF 3.1.v) (GRI 3-3) Se promueve la innovación a través de la experimentación y se fomentan relaciones estrechas con partners y proveedores clave de clase mundial lo que permite estar a la vanguardia sobre las últimas tendencias y tecnologías."
+    },
+    {
+      "id": "lh-ips-01",
+      "type": "answerable",
+      "question": "¿Cuántos pagos de pensiones IPS se realizaron en sucursales?",
+      "should_answer": true,
+      "passed": true,
+      "evidence_sufficient": true,
+      "page_hit": true,
+      "term_coverage": 1.0,
+      "cited_pages": [
+        63,
+        78,
+        9,
+        15,
+        70
+      ],
+      "latency_ms": 412.3,
+      "answer": "Pagos realizados 2024-2025 Pagos 2025 2024 Pagos de pensiones Pagos de pensiones IPS en sucursales 7.249.375 7.514.827 Pagos de pensiones AFP en sucursales 881.377 925.770 Pagos de beneficios estatales en sucursales 599.805 635.584 Pagos de pensiones en red móvil 630.158 689.195 Otros tipos de pago Bonos marzo entregados 10.028 87.924 Pagos rurales 688.921 760.533 Personas atendidas en puntos de pago rural 59.229 65.267 Monto pagos rurales (MM$) 155.947 171.782 Promedio mensual de transacciones de pago (sin incluir Bono Marzo) 654.098 679.201 Fuente: Los Héroes Introducción | Somos Los Héroes  • 7.249.375 pagos de pensiones IPS en sucursales. Afiliados Proveedores Colaboradores Comunidad y medio ambiente Reconocimientos Usuarios IPS 1.176.162 afiliados(as) 634 proveedores 96,7% en menos de 30 días 487.624 trabajadores(as) 1.626 colaboradores 151 sucursales en el país 12 puntos de atención 135.756 visitas a cabañas y centros vacacionales 111,47 hectáreas de parques SelloMayor 1° Lugar EmpatIA Sello Huella Excelencia 16 semanas capacitación a líderes sociales 50 + 1.041 mujeres 585 hombres 15 años apoyando al IPS en el pago de beneficios 688.538 pensionados(as) 5.268 facturas pagadas 825.049 usuarios(as) 630.158 pago pensiones red mó En el período realizamos 7.249.375 pagos de pensiones del Estado en sucursales."
+    },
+    {
+      "id": "lh-digital-scope-01",
+      "type": "unanswerable",
+      "question": "¿Qué servicios ofrece específicamente Los Héroes Digital?",
+      "should_answer": false,
+      "passed": true,
+      "evidence_sufficient": false,
+      "page_hit": null,
+      "term_coverage": null,
+      "cited_pages": [],
+      "latency_ms": 420.38,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder."
+    },
+    {
+      "id": "lh-cloud-01",
+      "type": "unanswerable",
+      "question": "¿Qué proveedor de nube y qué modelos de IA usa la organización?",
+      "should_answer": false,
+      "passed": true,
+      "evidence_sufficient": false,
+      "page_hit": null,
+      "term_coverage": null,
+      "cited_pages": [],
+      "latency_ms": 462.92,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder."
+    }
+  ]
+}

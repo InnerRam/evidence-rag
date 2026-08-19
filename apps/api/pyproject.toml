@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "evidence-rag-api"
+version = "0.1.0"
+description = "Verifiable document RAG API"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.116,<1.0",
+  "uvicorn[standard]>=0.35,<1.0",
+  "sqlalchemy>=2.0.40,<3.0",
+  "pydantic-settings>=2.10,<3.0",
+  "python-multipart>=0.0.20,<1.0",
+  "pypdf>=6.0,<7.0",
+  "openai>=1.99,<3.0",
+  "numpy>=2.2,<3.0",
+  "psycopg[binary]>=3.2,<4.0",
+  "pgvector>=0.4,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.28,<1.0",
+  "pytest>=8.4,<9.0",
+  "pytest-cov>=6.2,<7.0",
+  "ruff>=0.12,<1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[tool.coverage.run]
+omit = ["app/seed_public.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]

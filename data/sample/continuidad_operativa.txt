@@ -1,0 +1,15 @@
+# Objetivo
+
+Este plan demostrativo define la continuidad de una plataforma de atención ciudadana. Los servicios críticos tienen un objetivo de tiempo de recuperación, RTO, de cuatro horas. El objetivo de punto de recuperación, RPO, es de treinta minutos.
+
+# Respaldo y restauración
+
+La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días. El equipo ejecuta una prueba de restauración trimestral. Una copia adicional se mantiene en una región diferente a la del servicio principal.
+
+# Clasificación de incidentes
+
+Un incidente de nivel uno impide atender a todos los usuarios o compromete datos sensibles y debe escalarse al jefe de continuidad en un máximo de quince minutos. Un incidente de nivel dos degrada una función importante pero mantiene disponible el servicio principal.
+
+# Comunicación
+
+Durante una interrupción de nivel uno, el responsable de comunicaciones publica una actualización cada sesenta minutos. El cierre exige un informe de causa raíz dentro de cinco días hábiles y el registro de las acciones correctivas.

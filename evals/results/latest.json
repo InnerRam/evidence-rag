@@ -1,0 +1,320 @@
+{
+  "generated_at": "2026-08-18T20:07:52.726697+00:00",
+  "provider": "mock",
+  "settings": {
+    "top_k": 5,
+    "min_evidence_score": 0.18
+  },
+  "metrics": {
+    "case_count": 18,
+    "retrieval_recall_at_5": 1.0,
+    "top1_citation_accuracy": 1.0,
+    "mean_key_term_coverage": 1.0,
+    "answerable_acceptance_rate": 1.0,
+    "unanswerable_rejection_rate": 1.0,
+    "median_latency_ms": 4.025,
+    "p95_latency_ms": 5.08
+  },
+  "cases": [
+    {
+      "id": "solar-01",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 6.21,
+      "answer": "Su meta es instalar 120 kilovatios de capacidad solar antes del 31 de diciembre de 2027. El Programa Solar Andino es una iniciativa demostrativa creada para este portafolio. La meta de desempeño es reducir al menos un 25 por ciento el consumo anual de energía de la red en los recintos participantes.",
+      "cited_documents": [
+        "programa_solar_andino.txt",
+        "programa_solar_andino.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "solar-02",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 5.08,
+      "answer": "Los recintos participantes en la primera etapa son tres escuelas rurales y un centro comunitario de la Región de Coquimbo. La meta de desempeño es reducir al menos un 25 por ciento el consumo anual de energía de la red en los recintos participantes. Cada recinto designa además un encargado local de operación.",
+      "cited_documents": [
+        "programa_solar_andino.txt",
+        "programa_solar_andino.txt",
+        "programa_solar_andino.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "solar-03",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.03,
+      "answer": "Cada instalación tendrá baterías con una autonomía objetivo de ocho horas para cargas críticas. Si la autonomía medida baja de seis horas, el operador debe abrir una revisión técnica dentro de dos días hábiles. Los equipos deben minimizar los datos personales y eliminar atributos que no sean necesarios para el propósito declarado. Los secretos y credenciales nunca deben incluirse en prompts, datasets ni registros.",
+      "cited_documents": [
+        "programa_solar_andino.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt"
+      ]
+    },
+    {
+      "id": "solar-04",
+      "type": "multi_fragment",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.17,
+      "answer": "El mantenimiento preventivo se realiza dos veces al año y la producción energética se audita anualmente. El presupuesto referencial del piloto es de 185 millones de pesos chilenos. La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días.",
+      "cited_documents": [
+        "programa_solar_andino.txt",
+        "programa_solar_andino.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "solar-05",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.79,
+      "answer": "Si la autonomía medida baja de seis horas, el operador debe abrir una revisión técnica dentro de dos días hábiles. Cada instalación tendrá baterías con una autonomía objetivo de ocho horas para cargas críticas. Ningún sistema puede tomar por sí solo decisiones finales de contratación, despido o aprobación de crédito, porque esas decisiones requieren revisión humana y una explicación registrada. Un incidente de IA que exponga datos personales o produzca daño material debe notificarse al responsable de seguridad dentro de 24 horas.",
+      "cited_documents": [
+        "programa_solar_andino.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "continuidad-01",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.02,
+      "answer": "Los servicios críticos tienen un objetivo de tiempo de recuperación, RTO, de cuatro horas. El objetivo de punto de recuperación, RPO, es de treinta minutos. Los recintos participantes en la primera etapa son tres escuelas rurales y un centro comunitario de la Región de Coquimbo. Cada instalación tendrá baterías con una autonomía objetivo de ocho horas para cargas críticas.",
+      "cited_documents": [
+        "continuidad_operativa.txt",
+        "programa_solar_andino.txt",
+        "programa_solar_andino.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "continuidad-02",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 3.74,
+      "answer": "La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días. Los registros de solicitudes y respuestas se conservan durante doce meses. Los equipos deben minimizar los datos personales y eliminar atributos que no sean necesarios para el propósito declarado. Un incidente de nivel uno impide atender a todos los usuarios o compromete datos sensibles y debe escalarse al jefe de continuidad en un máximo de quince minutos.",
+      "cited_documents": [
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt"
+      ]
+    },
+    {
+      "id": "continuidad-03",
+      "type": "multi_fragment",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.54,
+      "answer": "Durante una interrupción de nivel uno, el responsable de comunicaciones publica una actualización cada sesenta minutos. Un incidente de nivel uno impide atender a todos los usuarios o compromete datos sensibles y debe escalarse al jefe de continuidad en un máximo de quince minutos. Un incidente de nivel dos degrada una función importante pero mantiene disponible el servicio principal. La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días.",
+      "cited_documents": [
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "programa_solar_andino.txt",
+        "politica_ia_responsable.txt"
+      ]
+    },
+    {
+      "id": "continuidad-04",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 3.65,
+      "answer": "El cierre exige un informe de causa raíz dentro de cinco días hábiles y el registro de las acciones correctivas. El equipo debe preservar evidencia, contener el impacto y documentar la causa raíz antes de reactivar el sistema. Un incidente de IA que exponga datos personales o produzca daño material debe notificarse al responsable de seguridad dentro de 24 horas. El Comité de IA Responsable aprueba el paso a producción y puede suspender un sistema cuando el riesgo residual supere la tolerancia definida.",
+      "cited_documents": [
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "programa_solar_andino.txt"
+      ]
+    },
+    {
+      "id": "ia-01",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 3.96,
+      "answer": "Ningún sistema puede tomar por sí solo decisiones finales de contratación, despido o aprobación de crédito, porque esas decisiones requieren revisión humana y una explicación registrada. El Comité de IA Responsable aprueba el paso a producción y puede suspender un sistema cuando el riesgo residual supere la tolerancia definida. Un incidente de IA que exponga datos personales o produzca daño material debe notificarse al responsable de seguridad dentro de 24 horas. Si la autonomía medida baja de seis horas, el operador debe abrir una revisión técnica dentro de dos días hábiles.",
+      "cited_documents": [
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "programa_solar_andino.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "ia-02",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 3.74,
+      "answer": "Los registros de solicitudes y respuestas se conservan durante doce meses. La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días. Los secretos y credenciales nunca deben incluirse en prompts, datasets ni registros. Durante una interrupción de nivel uno, el responsable de comunicaciones publica una actualización cada sesenta minutos.",
+      "cited_documents": [
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "programa_solar_andino.txt"
+      ]
+    },
+    {
+      "id": "ia-03",
+      "type": "multi_fragment",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.29,
+      "answer": "Los sistemas de alto impacto se someten a una evaluación trimestral de sesgo, calidad y seguridad. El Comité de IA Responsable aprueba el paso a producción y puede suspender un sistema cuando el riesgo residual supere la tolerancia definida. El equipo debe preservar evidencia, contener el impacto y documentar la causa raíz antes de reactivar el sistema. Esta política demostrativa aplica a sistemas de inteligencia artificial usados por la organización.",
+      "cited_documents": [
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "programa_solar_andino.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "ia-04",
+      "type": "answerable",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.04,
+      "answer": "Un incidente de IA que exponga datos personales o produzca daño material debe notificarse al responsable de seguridad dentro de 24 horas. Un incidente de nivel uno impide atender a todos los usuarios o compromete datos sensibles y debe escalarse al jefe de continuidad en un máximo de quince minutos. Un incidente de nivel dos degrada una función importante pero mantiene disponible el servicio principal. El equipo debe preservar evidencia, contener el impacto y documentar la causa raíz antes de reactivar el sistema.",
+      "cited_documents": [
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt"
+      ]
+    },
+    {
+      "id": "cross-01",
+      "type": "multi_document",
+      "should_answer": true,
+      "evidence_sufficient": true,
+      "retrieval_hit": true,
+      "top1_citation_correct": true,
+      "key_term_coverage": 1.0,
+      "latency_ms": 4.19,
+      "answer": "Los sistemas de alto impacto se someten a una evaluación trimestral de sesgo, calidad y seguridad. El equipo debe preservar evidencia, contener el impacto y documentar la causa raíz antes de reactivar el sistema. El Comité de IA Responsable aprueba el paso a producción y puede suspender un sistema cuando el riesgo residual supere la tolerancia definida. La frecuencia del respaldo de datos es diaria: la base de datos se respalda cada día de forma cifrada y cada respaldo se conserva durante 35 días.",
+      "cited_documents": [
+        "politica_ia_responsable.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt",
+        "politica_ia_responsable.txt",
+        "continuidad_operativa.txt"
+      ]
+    },
+    {
+      "id": "ambiguous-01",
+      "type": "ambiguous",
+      "should_answer": false,
+      "evidence_sufficient": false,
+      "retrieval_hit": null,
+      "top1_citation_correct": null,
+      "key_term_coverage": null,
+      "latency_ms": 3.35,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder.",
+      "cited_documents": []
+    },
+    {
+      "id": "unanswerable-01",
+      "type": "unanswerable",
+      "should_answer": false,
+      "evidence_sufficient": false,
+      "retrieval_hit": null,
+      "top1_citation_correct": null,
+      "key_term_coverage": null,
+      "latency_ms": 3.59,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder.",
+      "cited_documents": []
+    },
+    {
+      "id": "unanswerable-02",
+      "type": "unanswerable",
+      "should_answer": false,
+      "evidence_sufficient": false,
+      "retrieval_hit": null,
+      "top1_citation_correct": null,
+      "key_term_coverage": null,
+      "latency_ms": 3.62,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder.",
+      "cited_documents": []
+    },
+    {
+      "id": "unanswerable-03",
+      "type": "unanswerable",
+      "should_answer": false,
+      "evidence_sufficient": false,
+      "retrieval_hit": null,
+      "top1_citation_correct": null,
+      "key_term_coverage": null,
+      "latency_ms": 3.42,
+      "answer": "No existe evidencia suficiente en los documentos cargados para responder.",
+      "cited_documents": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{"id":"solar-01","type":"answerable","question":"¿Cuál es la meta de capacidad solar y cuál es su fecha límite?","expected_documents":["programa_solar_andino.txt"],"key_terms":["120 kilovatios","31 de diciembre de 2027"]}
+{"id":"solar-02","type":"answerable","question":"¿Qué recintos participan en la primera etapa?","expected_documents":["programa_solar_andino.txt"],"key_terms":["tres escuelas rurales","centro comunitario"]}
+{"id":"solar-03","type":"answerable","question":"¿Cuántas horas de autonomía deben tener las baterías?","expected_documents":["programa_solar_andino.txt"],"key_terms":["ocho horas"]}
+{"id":"solar-04","type":"multi_fragment","question":"¿Cuál es el presupuesto del piloto y con qué frecuencia se realiza mantenimiento preventivo?","expected_documents":["programa_solar_andino.txt"],"key_terms":["185 millones","dos veces al año"]}
+{"id":"solar-05","type":"answerable","question":"¿Qué ocurre si la autonomía baja de seis horas?","expected_documents":["programa_solar_andino.txt"],"key_terms":["revisión técnica","dos días hábiles"]}
+{"id":"continuidad-01","type":"answerable","question":"¿Cuáles son el RTO y el RPO de los servicios críticos?","expected_documents":["continuidad_operativa.txt"],"key_terms":["cuatro horas","treinta minutos"]}
+{"id":"continuidad-02","type":"answerable","question":"¿Con qué frecuencia se respaldan los datos y cuánto tiempo se conservan?","expected_documents":["continuidad_operativa.txt"],"key_terms":["cada día","35 días"]}
+{"id":"continuidad-03","type":"multi_fragment","question":"¿En cuánto tiempo se escala un incidente de nivel uno y cada cuánto se informa durante la interrupción?","expected_documents":["continuidad_operativa.txt"],"key_terms":["quince minutos","sesenta minutos"]}
+{"id":"continuidad-04","type":"answerable","question":"¿Cuándo debe entregarse el informe de causa raíz?","expected_documents":["continuidad_operativa.txt"],"key_terms":["cinco días hábiles"]}
+{"id":"ia-01","type":"answerable","question":"¿Puede la IA decidir por sí sola una contratación o un crédito?","expected_documents":["politica_ia_responsable.txt"],"key_terms":["revisión humana"]}
+{"id":"ia-02","type":"answerable","question":"¿Durante cuánto tiempo se conservan los registros de solicitudes y respuestas?","expected_documents":["politica_ia_responsable.txt"],"key_terms":["doce meses"]}
+{"id":"ia-03","type":"multi_fragment","question":"¿Quién aprueba el paso a producción y con qué frecuencia se evalúan los sistemas de alto impacto?","expected_documents":["politica_ia_responsable.txt"],"key_terms":["Comité de IA Responsable","trimestral"]}
+{"id":"ia-04","type":"answerable","question":"¿En qué plazo debe notificarse un incidente de IA con exposición de datos?","expected_documents":["politica_ia_responsable.txt"],"key_terms":["24 horas"]}
+{"id":"cross-01","type":"multi_document","question":"Compara la frecuencia de las pruebas de restauración con la evaluación de sistemas de IA de alto impacto.","expected_documents":["continuidad_operativa.txt","politica_ia_responsable.txt"],"key_terms":["trimestral"]}
+{"id":"ambiguous-01","type":"ambiguous","question":"¿Quién es el responsable?","expected_documents":[],"key_terms":[]}
+{"id":"unanswerable-01","type":"unanswerable","question":"¿Cuál es la temperatura máxima de operación de los paneles?","expected_documents":[],"key_terms":[]}
+{"id":"unanswerable-02","type":"unanswerable","question":"¿Qué proveedor de nube fue contratado y cuál es su tarifa mensual?","expected_documents":[],"key_terms":[]}
+{"id":"unanswerable-03","type":"unanswerable","question":"¿Cuál es el menú del casino corporativo?","expected_documents":[],"key_terms":[]}

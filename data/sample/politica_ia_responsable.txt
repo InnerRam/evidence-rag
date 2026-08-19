@@ -1,0 +1,15 @@
+# Alcance y usos prohibidos
+
+Esta política demostrativa aplica a sistemas de inteligencia artificial usados por la organización. Ningún sistema puede tomar por sí solo decisiones finales de contratación, despido o aprobación de crédito, porque esas decisiones requieren revisión humana y una explicación registrada.
+
+# Datos y seguridad
+
+Los equipos deben minimizar los datos personales y eliminar atributos que no sean necesarios para el propósito declarado. Los registros de solicitudes y respuestas se conservan durante doce meses. Los secretos y credenciales nunca deben incluirse en prompts, datasets ni registros.
+
+# Evaluación y supervisión
+
+Los sistemas de alto impacto se someten a una evaluación trimestral de sesgo, calidad y seguridad. El Comité de IA Responsable aprueba el paso a producción y puede suspender un sistema cuando el riesgo residual supere la tolerancia definida.
+
+# Incidentes
+
+Un incidente de IA que exponga datos personales o produzca daño material debe notificarse al responsable de seguridad dentro de 24 horas. El equipo debe preservar evidencia, contener el impacto y documentar la causa raíz antes de reactivar el sistema.

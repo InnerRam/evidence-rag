@@ -1,0 +1,26 @@
+services:
+  db:
+    restart: unless-stopped
+
+  api:
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+    networks:
+      default:
+      proxy:
+        aliases:
+          - evidence-rag-api
+
+  web:
+    restart: unless-stopped
+    networks:
+      default:
+      proxy:
+        aliases:
+          - evidence-rag-web
+
+networks:
+  proxy:
+    name: ${PROXY_NETWORK:-proxy_network}
+    external: true
