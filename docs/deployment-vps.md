@@ -14,7 +14,7 @@ El stack ya fue construido y levantado en el checkout exclusivo
 modo mock, y Nginx Proxy Manager alcanza los aliases de web y API. El lockfile
 pnpm y el runtime standalone del frontend están versionados.
 
-El wrapper root-owned confirmó directamente el commit `21897b8`, health de los tres
+El wrapper root-owned desplegó y confirmó directamente el commit `b4cc2603`, health de los tres
 servicios, proveedor mock y web HTTP 200. Los gates Docker aprobaron backend y
 frontend; el seed dejó 388 páginas y 980 fragmentos, y el smoke verificó respuesta
 citada y rechazo sin evidencia.
@@ -22,8 +22,12 @@ citada y rechazo sin evidencia.
 La comprobación externa del 2026-08-20 confirmó que ambos nombres resuelven al
 VPS, presentan certificados Let's Encrypt válidos y sirven EvidenceRAG por
 HTTPS. `https://rag-api.citec.cl/health` devuelve base y proveedor mock en estado
-correcto. La web fuerza la redirección HTTP→HTTPS; el host API todavía acepta
-HTTP 200 y debe activar Force SSL antes del cierre público.
+correcto. Ambos hosts fuerzan la redirección HTTP→HTTPS y CORS permite únicamente
+el origen público de la web para las consultas previstas.
+
+La evaluación live pública aprobó 10/10 casos, con 100% de recall de página,
+cobertura de términos y rechazo sin evidencia; la latencia mediana observada fue
+45 ms. El reporte versionado está en `evals/results/deployment-mock.md`.
 
 El dato histórico de capacidad no se revalidó desde la cuenta restringida y no
 debe usarse para afirmar que el stack sigue pendiente: el despliegue healthy fue

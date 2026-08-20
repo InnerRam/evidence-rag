@@ -8,6 +8,15 @@ La demo inicial consulta la [Memoria Integrada Los Héroes 2025](https://porpub2
 
 > **Demostración conceptual no oficial construida exclusivamente con información pública. No corresponde a un producto ni implementación de Caja Los Héroes.**
 
+## Demo pública
+
+- Aplicación: [https://rag.citec.cl](https://rag.citec.cl)
+- Health API: [https://rag-api.citec.cl/health](https://rag-api.citec.cl/health)
+
+El despliegue público usa el proveedor mock determinístico y exclusivamente el
+corpus institucional público. HTTPS, CORS, health, citas, rechazo sin evidencia
+y la evaluación live están verificados en `evals/results/deployment-mock.md`.
+
 ## Qué demuestra
 
 - Ingestión segura con validación, SHA-256 e idempotencia.
