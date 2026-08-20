@@ -1,0 +1,358 @@
+#!/bin/bash -p
+set -Eeuo pipefail
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+IFS=$'\n\t'
+umask 077
+unset BASH_ENV ENV CDPATH GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE DOCKER_HOST DOCKER_CONTEXT DOCKER_CERT_PATH DOCKER_TLS_VERIFY DOCKER_API_VERSION COMPOSE_FILE COMPOSE_PROJECT_NAME COMPOSE_PROFILES
+HOME=/root
+export PATH HOME
+
+readonly AUTHORIZED_USER="codex-evidence"
+readonly DEPLOY_OWNER="adminuser"
+readonly DEPLOY_HOME="/home/adminuser"
+readonly APP_DIR="/home/adminuser/web-apps/evidence-rag"
+readonly EXPECTED_ORIGIN="https://github.com/InnerRam/evidence-rag.git"
+readonly EXPECTED_ORIGIN_SSH="git@github.com:InnerRam/evidence-rag.git"
+readonly INSTALLED_PATH="/usr/local/sbin/evidence-rag-ops"
+readonly STATE_DIR="/var/lib/evidence-rag-ops"
+readonly DOCKER_CONFIG="${STATE_DIR}/docker-config"
+export DOCKER_CONFIG
+readonly PREVIOUS_COMMIT_FILE="${STATE_DIR}/previous_commit"
+readonly LOCK_FILE="/run/lock/evidence-rag-ops.lock"
+
+readonly COMPOSE_SHA256="517b127bf67e5a4e10218cf0f72c559429c75341304fc0481b304b03ab059334"
+readonly PROD_COMPOSE_SHA256="bd7c2eaac756486156dda882a74dae912d2df8e43a2fee510566088994fcc91f"
+readonly API_DOCKERFILE_SHA256="672a2b3ec943b2d79ff88fbc8490e19f7062e86f26506c66616887c3c13f33d8"
+readonly WEB_DOCKERFILE_SHA256="74e4b287d57ca453717e18cbb7bb6d6df0eca535e535b4a9a9461a71a73abacd"
+
+readonly -a COMPOSE=(
+  /usr/bin/docker --host unix:///var/run/docker.sock compose
+  --project-name evidence-rag
+  --project-directory "$APP_DIR"
+  -f "$APP_DIR/compose.yaml"
+  -f "$APP_DIR/compose.prod.yaml"
+)
+
+die() {
+  echo "ERROR: $*" >&2
+  exit 1
+}
+
+note() {
+  echo "EvidenceRAG: $*"
+}
+
+verify_installation() {
+  [[ $EUID -eq 0 ]] || die "este wrapper debe ejecutarse mediante sudo."
+  if [[ -n ${SUDO_USER:-} && ${SUDO_USER} != "root" && ${SUDO_USER} != "$AUTHORIZED_USER" ]]; then
+    die "usuario no autorizado."
+  fi
+
+  local resolved owner group mode
+  resolved=$(/usr/bin/readlink -f -- "$0")
+  [[ $resolved == "$INSTALLED_PATH" ]] || die "use la copia instalada en $INSTALLED_PATH."
+  IFS=' ' read -r owner group mode < <(/usr/bin/stat -c '%U %G %a' -- "$resolved")
+  [[ $owner == "root" && $group == "root" && $mode == "755" ]] ||
+    die "el wrapper instalado debe ser root:root y modo 0755."
+  /usr/bin/install -d -o root -g root -m 0700 "$STATE_DIR" "$DOCKER_CONFIG"
+}
+
+git_as_owner() {
+  /usr/sbin/runuser -u "$DEPLOY_OWNER" -- \
+    /usr/bin/env -i \
+      HOME="$DEPLOY_HOME" \
+      PATH=/usr/bin:/bin \
+      GIT_CONFIG_GLOBAL=/dev/null \
+      GIT_CONFIG_SYSTEM=/dev/null \
+      GIT_TERMINAL_PROMPT=0 \
+    /usr/bin/git \
+      -c core.hooksPath=/dev/null \
+      -c credential.helper= \
+      -c protocol.file.allow=never \
+      -C "$APP_DIR" "$@"
+}
+
+verify_digest() {
+  local relative=$1 expected=$2 actual
+  [[ -f "$APP_DIR/$relative" && ! -L "$APP_DIR/$relative" ]] ||
+    die "archivo operativo inválido: $relative"
+  actual=$(/usr/bin/sha256sum -- "$APP_DIR/$relative")
+  actual=${actual%% *}
+  [[ $actual == "$expected" ]] ||
+    die "$relative cambió; requiere revisión root y actualización del wrapper."
+}
+
+verify_repository_permissions() {
+  local deploy_uid deploy_gid caller_gid unsafe
+  deploy_uid=$(/usr/bin/id -u "$DEPLOY_OWNER")
+  deploy_gid=$(/usr/bin/stat -c '%g' -- "$APP_DIR")
+  [[ $(/usr/bin/stat -c '%u' -- "$APP_DIR") == "$deploy_uid" ]] ||
+    die "$APP_DIR no pertenece a $DEPLOY_OWNER."
+
+  unsafe=$(/usr/bin/find "$APP_DIR" -xdev \
+    \( -user "$AUTHORIZED_USER" -o -perm -0002 \) -print -quit)
+  [[ -z $unsafe ]] || die "el usuario delegado puede modificar el checkout: $unsafe"
+
+  while IFS= read -r caller_gid; do
+    [[ $caller_gid != "$deploy_gid" ]] ||
+      die "$AUTHORIZED_USER pertenece al grupo propietario del checkout."
+    unsafe=$(/usr/bin/find "$APP_DIR" -xdev -gid "$caller_gid" -perm -0020 -print -quit)
+    [[ -z $unsafe ]] || die "el usuario delegado puede modificar por grupo: $unsafe"
+  done < <(/usr/bin/id -G "$AUTHORIZED_USER" | /usr/bin/tr ' ' '\n')
+}
+
+verify_repository() {
+  [[ -d "$APP_DIR" && -d "$APP_DIR/.git" && ! -L "$APP_DIR" && ! -L "$APP_DIR/.git" ]] ||
+    die "checkout de producción ausente o inválido."
+  verify_repository_permissions
+
+  local origin
+  origin=$(git_as_owner config --get remote.origin.url)
+  [[ $origin == "$EXPECTED_ORIGIN" || $origin == "$EXPECTED_ORIGIN_SSH" ]] ||
+    die "origin no autorizado: $origin"
+
+  verify_digest compose.yaml "$COMPOSE_SHA256"
+  verify_digest compose.prod.yaml "$PROD_COMPOSE_SHA256"
+  verify_digest apps/api/Dockerfile "$API_DOCKERFILE_SHA256"
+  verify_digest apps/web/Dockerfile "$WEB_DOCKERFILE_SHA256"
+}
+
+require_clean_main() {
+  local branch changes
+  branch=$(git_as_owner symbolic-ref --quiet --short HEAD) || die "HEAD debe estar en main."
+  [[ $branch == "main" ]] || die "producción debe permanecer en la rama main."
+  changes=$(git_as_owner status --porcelain --untracked-files=normal)
+  [[ -z $changes ]] || die "el checkout de producción contiene cambios; se rechaza la operación."
+}
+
+validate_config() {
+  "${COMPOSE[@]}" config --quiet
+  note "configuración Compose válida y política operativa intacta."
+}
+
+show_status() {
+  note "commit desplegado $(git_as_owner rev-parse --short=12 HEAD)"
+  "${COMPOSE[@]}" ps
+}
+
+show_logs() {
+  note "últimos 200 registros por servicio, limitados a 30 minutos."
+  "${COMPOSE[@]}" logs --no-color --since 30m --tail 200 api web db
+}
+
+check_health() {
+  "${COMPOSE[@]}" exec -T api python3 -c \
+    'import json, urllib.request; data=json.load(urllib.request.urlopen("http://localhost:8000/health", timeout=10)); assert data.get("status")=="ok" and data.get("database")=="ok"; print("API/DB OK | provider=" + str(data.get("provider")))' || return
+  "${COMPOSE[@]}" exec -T web node -e \
+    'fetch("http://localhost:3000").then(r=>{if(!r.ok)throw Error(String(r.status));console.log("WEB OK | status="+r.status)}).catch(e=>{console.error(e.message);process.exit(1)})' || return
+}
+
+run_tests() {
+  local commit
+  commit=$(git_as_owner rev-parse --short=12 HEAD)
+  /usr/bin/docker --host unix:///var/run/docker.sock build --pull --target test \
+    --tag "evidence-rag-api-test:$commit" "$APP_DIR/apps/api" || return
+  /usr/bin/docker --host unix:///var/run/docker.sock run --rm --network none "evidence-rag-api-test:$commit" || return
+  /usr/bin/docker --host unix:///var/run/docker.sock build --pull --target test \
+    --tag "evidence-rag-web-test:$commit" "$APP_DIR/apps/web" || return
+  /usr/bin/docker --host unix:///var/run/docker.sock run --rm --network none "evidence-rag-web-test:$commit" || return
+}
+
+build_runtime() {
+  "${COMPOSE[@]}" build --pull api web
+}
+
+activate_runtime() {
+  "${COMPOSE[@]}" up -d --no-build --wait --wait-timeout 180 db api web || return
+  check_health
+}
+
+seed_public() {
+  "${COMPOSE[@]}" exec -T api python3 -m app.seed_public
+}
+
+run_smoke() {
+  "${COMPOSE[@]}" exec -T api python3 - <<'PY'
+import json
+import urllib.request
+
+BASE = "http://localhost:8000"
+
+
+def get(path):
+    with urllib.request.urlopen(BASE + path, timeout=30) as response:
+        return json.load(response)
+
+
+def post(question):
+    request = urllib.request.Request(
+        BASE + "/api/v1/query",
+        data=json.dumps({"question": question, "top_k": 5}).encode(),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=180) as response:
+        return json.load(response)
+
+
+health = get("/health")
+assert health == {"status": "ok", "database": "ok", "provider": "mock"}, health
+documents = get("/api/v1/documents")
+assert any(item["filename"] == "Memoria-Integrada-Los-Heroes-2025.pdf" for item in documents)
+
+grounded = post("¿Cómo se utilizaron la IA y Machine Learning durante 2025?")
+assert grounded["evidence_sufficient"] is True, grounded
+assert grounded["citations"], grounded
+assert any(citation.get("page") == 66 for citation in grounded["citations"]), grounded
+
+rejected = post("¿Qué proveedor de nube y qué modelos de IA usa la organización?")
+assert rejected["evidence_sufficient"] is False, rejected
+assert rejected["citations"] == [], rejected
+
+print(
+    "SMOKE OK | provider=mock | corpus=present | grounded=yes "
+    f"| citations={len(grounded['citations'])} | unsupported=rejected"
+)
+PY
+}
+
+record_previous_commit() {
+  local commit=$1 temporary="${STATE_DIR}/previous_commit.$$"
+  /usr/bin/install -d -o root -g root -m 0700 "$STATE_DIR"
+  printf '%s\n' "$commit" >"$temporary"
+  /usr/bin/chown root:root "$temporary"
+  /usr/bin/chmod 0600 "$temporary"
+  /usr/bin/mv -f -- "$temporary" "$PREVIOUS_COMMIT_FILE"
+}
+
+clear_previous_commit() {
+  /usr/bin/install -d -o root -g root -m 0700 "$STATE_DIR"
+  : >"$PREVIOUS_COMMIT_FILE"
+  /usr/bin/chown root:root "$PREVIOUS_COMMIT_FILE"
+  /usr/bin/chmod 0600 "$PREVIOUS_COMMIT_FILE"
+}
+
+restore_commit() {
+  local commit=$1
+  git_as_owner reset --hard "$commit" || return
+  build_runtime || return
+  activate_runtime
+}
+
+deploy_main() {
+  require_clean_main
+  validate_config
+
+  local current target
+  current=$(git_as_owner rev-parse HEAD)
+  git_as_owner fetch --no-tags "$EXPECTED_ORIGIN" \
+    +refs/heads/main:refs/remotes/origin/main
+  target=$(git_as_owner rev-parse refs/remotes/origin/main)
+
+  [[ $target =~ ^[0-9a-f]{40}$ ]] || die "referencia origin/main inválida."
+  git_as_owner merge-base --is-ancestor "$current" "$target" ||
+    die "origin/main no es fast-forward desde el commit desplegado."
+  if [[ $current == "$target" ]]; then
+    note "origin/main ya está desplegado."
+    check_health
+    return
+  fi
+
+  git_as_owner diff --quiet "$current" "$target" -- \
+    compose.yaml compose.prod.yaml apps/api/Dockerfile apps/web/Dockerfile ||
+    die "origin/main cambia la superficie operativa fijada; requiere revisión root."
+
+  note "validando origin/main ${target:0:12}."
+  git_as_owner merge --ff-only "$target"
+  verify_repository
+  if ! run_tests; then
+    git_as_owner reset --hard "$current"
+    die "fallaron los tests; el checkout volvió a ${current:0:12} y producción no cambió."
+  fi
+  if ! build_runtime; then
+    git_as_owner reset --hard "$current"
+    die "falló el build; el checkout volvió a ${current:0:12} y producción no cambió."
+  fi
+
+  if activate_runtime; then
+    record_previous_commit "$current"
+    note "deploy completado: ${current:0:12} -> ${target:0:12}."
+    return
+  fi
+
+  note "falló la activación; iniciando rollback automático a ${current:0:12}."
+  if restore_commit "$current"; then
+    die "deploy rechazado y rollback automático completado."
+  fi
+  die "fallaron deploy y recuperación automática; se requiere intervención root."
+}
+
+rollback_previous() {
+  require_clean_main
+  [[ -s $PREVIOUS_COMMIT_FILE ]] || die "no existe un commit anterior registrado."
+
+  local current target
+  current=$(git_as_owner rev-parse HEAD)
+  target=$(/usr/bin/head -n 1 -- "$PREVIOUS_COMMIT_FILE")
+  [[ $target =~ ^[0-9a-f]{40}$ ]] || die "estado de rollback inválido."
+  git_as_owner cat-file -e "${target}^{commit}"
+  git_as_owner merge-base --is-ancestor "$target" "$current" ||
+    die "el rollback registrado no es ancestro del commit actual."
+  git_as_owner diff --quiet "$target" "$current" -- \
+    compose.yaml compose.prod.yaml apps/api/Dockerfile apps/web/Dockerfile ||
+    die "el rollback cambia la superficie operativa fijada; requiere revisión root."
+
+  note "rollback controlado ${current:0:12} -> ${target:0:12}."
+  git_as_owner reset --hard "$target"
+  verify_repository
+  if build_runtime && activate_runtime; then
+    clear_previous_commit
+    note "rollback completado."
+    return
+  fi
+
+  note "falló el rollback; intentando restaurar ${current:0:12}."
+  if restore_commit "$current"; then
+    die "rollback rechazado; se restauró el commit original."
+  fi
+  die "fallaron rollback y recuperación; se requiere intervención root."
+}
+
+restart_project() {
+  "${COMPOSE[@]}" restart db api web || return
+  activate_runtime
+}
+
+usage() {
+  echo "Uso: sudo $INSTALLED_PATH {config|status|logs|health|tests|build|deploy|seed-public|smoke|restart|rollback}" >&2
+  exit 64
+}
+
+[[ $# -eq 1 ]] || usage
+readonly ACTION=$1
+case "$ACTION" in
+  config|status|logs|health|tests|build|deploy|seed-public|smoke|restart|rollback) ;;
+  *) usage ;;
+esac
+
+verify_installation
+exec 9>"$LOCK_FILE"
+/usr/bin/flock -x 9
+
+verify_repository
+/usr/bin/logger -t evidence-rag-ops -- "actor=${SUDO_USER:-root} action=$ACTION"
+
+case "$ACTION" in
+  config) validate_config ;;
+  status) show_status ;;
+  logs) show_logs ;;
+  health) check_health ;;
+  tests) require_clean_main; run_tests ;;
+  build) require_clean_main; validate_config; build_runtime ;;
+  deploy) deploy_main ;;
+  seed-public) require_clean_main; seed_public ;;
+  smoke) require_clean_main; run_smoke ;;
+  restart) require_clean_main; restart_project ;;
+  rollback) rollback_previous ;;
+esac

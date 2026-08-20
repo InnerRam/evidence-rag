@@ -224,6 +224,7 @@ Consulte [docs/security.md](docs/security.md). La demo no incorpora autenticaci�
 ## Despliegue y presentación
 
 - [Guía VPS + Nginx Proxy Manager](docs/deployment-vps.md)
+- [Operación delegada y restringida](docs/operations.md)
 - [Guion Loom de tres minutos](docs/interview/loom-script.md)
 - [Caso de estudio de una página](docs/interview/case-study.md)
 - [Preguntas y respuestas de entrevista](docs/interview/questions-and-answers.md)

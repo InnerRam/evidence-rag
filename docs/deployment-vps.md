@@ -4,39 +4,46 @@
 
 - Ubuntu 20.04 o posterior con actualizaciones de seguridad.
 - Docker Engine con Compose v2.
-- DNS de dos subdominios, por ejemplo `rag.example.com` y `rag-api.example.com`.
+- DNS de los subdominios públicos `rag.citec.cl` y `rag-api.citec.cl`.
 - Nginx Proxy Manager conectado a la red Docker externa indicada en `PROXY_NETWORK`.
 
-## Gate previo de capacidad
+## Estado operativo confirmado — 2026-08-20
 
-El servidor informado tiene 61 GB, 96% ocupado y solo 3 GB disponibles. **No construir ni desplegar en ese estado.** Una compilación web, capas Docker y logs temporales pueden agotar el filesystem y afectar servicios existentes. Antes de decidir qué liberar, ejecutar únicamente diagnóstico de lectura:
+El stack ya fue construido y levantado en el checkout exclusivo
+`/home/adminuser/web-apps/evidence-rag`. PostgreSQL, API y web están healthy en
+modo mock, y Nginx Proxy Manager alcanza los aliases de web y API. El lockfile
+pnpm y el runtime standalone del frontend están versionados.
 
-```bash
-df -h /
-df -ih /
-free -h
-docker system df
-journalctl --disk-usage
-du -xhd1 /var/lib/docker /var/log /home/adminuser /root /opt 2>/dev/null | sort -h
-docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'
-docker images --format 'table {{.Repository}}:{{.Tag}}\t{{.Size}}\t{{.CreatedSince}}'
-docker volume ls
-```
+El wrapper root-owned confirmó directamente el commit `21897b8`, health de los tres
+servicios, proveedor mock y web HTTP 200. Los gates Docker aprobaron backend y
+frontend; el seed dejó 388 páginas y 980 fragmentos, y el smoke verificó respuesta
+citada y rechazo sin evidencia.
 
-Revisar el resultado antes de eliminar nada. No ejecutar `docker system prune`, no borrar volúmenes y no rotar o truncar logs a ciegas. Para este despliegue se recomienda recuperar al menos 8 GB disponibles —idealmente 10 GB— y confirmar inodos y memoria suficientes.
+La comprobación externa del 2026-08-20 confirmó que ambos nombres resuelven al
+VPS, pero TLS todavía responde `unrecognized name`; por HTTP la web devuelve 200
+y la ruta health del host API devuelve 404. Esto sitúa el bloqueo en la
+configuración de los Proxy Hosts/certificados de Nginx Proxy Manager, no en el
+stack EvidenceRAG.
+
+El dato histórico de capacidad no se revalidó desde la cuenta restringida y no
+debe usarse para afirmar que el stack sigue pendiente: el despliegue healthy fue
+confirmado posteriormente. Antes de un nuevo build, el administrador debe revisar
+el margen vigente. Se mantiene la regla de no ejecutar `docker system prune`,
+no borrar volúmenes y no rotar o truncar logs a ciegas. Cualquier nueva alerta de disco requiere un
+diagnóstico específico y revisión antes de eliminar datos.
 
 ## Preparación
 
-1. Clonar el repositorio en una carpeta exclusiva, recomendada: `/home/adminuser/web-apps/evidence-rag`.
-2. Copiar `.env.example` a `.env`.
-3. Cambiar la contraseña PostgreSQL únicamente en `.env`; usar una contraseña URL-safe larga porque forma parte de `DATABASE_URL`.
-4. Definir `API_CORS_ORIGINS=https://rag.example.com` y `NEXT_PUBLIC_API_URL=https://rag-api.example.com/api/v1`.
+1. Mantener el repositorio en una carpeta exclusiva: `/home/adminuser/web-apps/evidence-rag`.
+2. Mantener la configuración exclusivamente en `.env`, fuera de Git.
+3. Usar una contraseña PostgreSQL URL-safe larga porque forma parte de `DATABASE_URL`.
+4. Definir `API_CORS_ORIGINS=https://rag.citec.cl` y `NEXT_PUBLIC_API_URL=https://rag-api.citec.cl/api/v1`.
 5. Definir `PROXY_NETWORK` con el nombre exacto de la red externa compartida con Nginx Proxy Manager.
-6. Mantener `AI_PROVIDER=mock` para el primer despliegue. `OPENAI_API_KEY` debe permanecer vacía.
+6. Mantener `AI_PROVIDER=mock` para el MVP público. `OPENAI_API_KEY` debe permanecer vacía.
 
-Antes del primer commit definitivo, generar y versionar `apps/web/pnpm-lock.yaml` en un entorno con acceso al registro. El Dockerfile usa instalación congelada automáticamente cuando el lockfile existe.
+`apps/web/pnpm-lock.yaml` ya está versionado. El Dockerfile usa instalación congelada.
 
-## Gates antes de levantar servicios
+## Gates de cada publicación
 
 Ejecutar desde la raíz del repositorio:
 
@@ -50,7 +57,18 @@ docker build --target test -t evidence-rag-web-test ./apps/web
 docker run --rm evidence-rag-web-test
 ```
 
-Si un gate falla, no continuar al despliegue ni hacer commit de correcciones no verificadas.
+Si un gate falla, no continuar al despliegue. La operación delegada debe usar el
+wrapper documentado en [operations.md](operations.md), que fija la superficie
+Compose/Dockerfile y no permite argumentos Docker libres.
+
+## Acceso operativo mínimo
+
+La cuenta `codex-evidence` no recibe acceso al socket Docker ni sudo general. La
+regla versionada autoriza exclusivamente `config`, `status`, logs acotados,
+`health`, `tests`, `build`, deploy fast-forward desde `origin/main`, seed
+público, smoke, restart del proyecto y rollback al commit previo. Su instalación
+es una acción root separada y explícita; Nginx Proxy Manager y otros proyectos
+quedan fuera de alcance.
 
 ## Primer arranque
 
@@ -82,11 +100,14 @@ docker compose -f compose.yaml -f compose.prod.yaml exec -T api \
 
 ## Actualización segura
 
-1. Respaldar base y archivos.
-2. Construir imágenes con un tag de versión.
-3. Ejecutar pruebas y smoke en staging.
-4. Publicar y revisar health checks.
-5. Conservar la imagen anterior para rollback.
+1. Confirmar checkout limpio sobre `main`.
+2. Obtener únicamente un fast-forward desde `origin/main`.
+3. Ejecutar tests API/web y validar Compose.
+4. Construir sin detener los contenedores activos.
+5. Activar solo `db`, `api` y `web`, esperar health y conservar el commit anterior.
+6. Si health falla, volver al commit anterior sin eliminar volúmenes.
+
+El wrapper automatiza exactamente este flujo y serializa las operaciones con un lock.
 
 ## Nginx Proxy Manager
 
@@ -94,8 +115,8 @@ Crear dos Proxy Hosts:
 
 | Host | Forward hostname/port | Websockets | SSL |
 | --- | --- | --- | --- |
-| `rag.example.com` | `evidence-rag-web:3000` | activado | Let's Encrypt + Force SSL |
-| `rag-api.example.com` | `evidence-rag-api:8000` | activado | Let's Encrypt + Force SSL |
+| `rag.citec.cl` | `evidence-rag-web:3000` | activado | Let's Encrypt + Force SSL |
+| `rag-api.citec.cl` | `evidence-rag-api:8000` | activado | Let's Encrypt + Force SSL |
 
 Añadir en “Advanced” del API:
 
@@ -112,33 +133,32 @@ Para una entrevista pública, proteger ambos hosts con Access List. Una demo sin
 Después de crear ambos Proxy Hosts, comprobar desde un cliente externo:
 
 ```bash
-curl -fsS https://rag-api.example.com/health
+curl -fsS https://rag-api.citec.cl/health
 ```
 
-La respuesta debe indicar `status=ok`, `database=ok` y `provider=mock`. Luego cargar un documento de muestra desde la web, responder una pregunta sustentada, comprobar una pregunta sin evidencia y reiniciar solamente este proyecto para validar persistencia:
-
-```bash
-docker compose -f compose.yaml -f compose.prod.yaml restart
-docker compose -f compose.yaml -f compose.prod.yaml ps
-```
-
-No reiniciar Nginx Proxy Manager ni contenedores de otros proyectos. Si NPM se recrea, confirmar que continúe conectado a `PROXY_NETWORK`.
+La respuesta debe indicar `status=ok`, `database=ok` y `provider=mock`. Luego
+comprobar desde la web una pregunta sustentada y una sin evidencia. Reiniciar
+solamente EvidenceRAG para validar persistencia; no reiniciar Nginx Proxy Manager
+ni contenedores de otros proyectos.
 
 Ejecutar el set live desde una máquina con acceso al subdominio API:
 
 ```bash
 python3 scripts/run_live_evals.py \
-  --api-url https://rag-api.example.com/api/v1 \
+  --api-url https://rag-api.citec.cl/api/v1 \
   --output-prefix evals/results/deployment-mock
 ```
+
+Versionar el reporte solo después de revisar que corresponde al hostname,
+proveedor y commit desplegados.
 
 ## Cambio controlado de mock a OpenAI
 
 1. Guardar la clave solo en `.env` o un secret del backend; nunca en Git, la web o capturas.
 2. Cambiar `AI_PROVIDER=openai` y registrar explícitamente modelos y tarifas vigentes.
-3. Recrear únicamente API: `docker compose -f compose.yaml -f compose.prod.yaml up -d --build api`.
+3. Recrear únicamente API.
 4. Confirmar `/health` con `provider=openai`.
-5. Ejecutar nuevamente `python3 -m app.seed_public` dentro del contenedor API.
+5. Ejecutar nuevamente el seed público dentro del contenedor API.
 6. Correr la evaluación live y revisar manualmente respuesta, citas, latencia, tokens y costo antes de habilitar la demo.
 
 La huella de embedding aísla los índices mock y OpenAI dentro de la misma base; retrieval y listado usan solo el índice activo. Si cambia `EMBEDDING_DIMENSIONS`, se requiere una base/migración nueva porque la columna pgvector tiene dimensión fija.

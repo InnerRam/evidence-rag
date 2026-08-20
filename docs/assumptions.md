@@ -18,9 +18,11 @@
 - Escalamiento para millones de fragmentos; primero se medirá la necesidad.
 - Representar una implementación, producto oficial o arquitectura interna de Caja Los Héroes.
 
-## Bloqueos reales del entorno de construcción
+## Restricciones operativas vigentes
 
-- No hay binario Docker accesible, por lo que Compose se revisa estáticamente pero su arranque debe verificarse en una máquina con Docker.
-- El registro de paquetes JavaScript no fue accesible; la instalación, el lockfile y los gates `lint/typecheck/test/build` del frontend deben ejecutarse en un entorno con acceso al registro.
-- No existe `OPENAI_API_KEY`; el flujo OpenAI real y sus métricas quedan pendientes. La clave debe configurarse localmente o en el servidor, nunca compartirse por chat.
-- El VPS reporta 96% de uso de disco y 3 GB disponibles; no se autoriza construir o desplegar hasta realizar un diagnóstico de solo lectura y recuperar margen sin afectar otros servicios.
+- Docker existe y el stack de producción ya fue construido y validado en el VPS, pero `codex-evidence` no pertenece al grupo Docker ni tiene sudo general.
+- El frontend dispone de lockfile pnpm versionado y su imagen standalone está desplegada; lint, tipos, tests y build siguen siendo gates obligatorios de cada cambio mediante los targets Docker.
+- El checkout de producción pertenece a `adminuser` y no es legible por `codex-evidence`. Esta separación se conserva; la operación delegada pasa exclusivamente por el wrapper root-owned descrito en `docs/operations.md`.
+- No existe una `OPENAI_API_KEY` compartida. El cierre público actual usa `AI_PROVIDER=mock`; OpenAI y sus métricas quedan fuera de alcance hasta una autorización separada.
+- Nginx Proxy Manager ya alcanza web y API por la red externa. Certificado, Force SSL y health externo deben quedar evidenciados antes de declarar cerrado HTTPS.
+- No se autorizan commit, push, merge, instalación privilegiada ni deploy implícitos; cada transición requiere el checkpoint y la autorización definidos para este cierre.
