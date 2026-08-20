@@ -1,17 +1,17 @@
 # Evolución transparente
 
-## Cierre actual del MVP mock
+## MVP mock público cerrado
 
 - Stack de producción y conectividad interna de Nginx Proxy Manager confirmados.
 - Wrapper root-owned, gates Docker, seed público y smoke de producción completados.
-- Pendiente de evidencia final: publicar esta rama ya autorizada, activar Force SSL en `rag-api.citec.cl` y ejecutar la evaluación live por HTTPS.
+- Rama operativa fusionada mediante PR, commit `b4cc2603` desplegado y evaluación live HTTPS 10/10 versionada.
 - El cierre no requiere OpenAI: el proveedor mock mantiene la demo y los gates reproducibles sin secretos ni costo externo.
 
 ## Siguiente validación
 
-- Ejecutar los 10 casos del PDF público sobre la URL HTTPS del despliegue mock y conservar el reporte separado del baseline local.
 - Ejecutar posteriormente los 18 casos sintéticos y los 10 casos del PDF público con OpenAI; registrar modelo, fecha, tokens, costo y fallos por separado.
 - Revisión humana ciega de fidelidad y citas.
+- Mejorar concisión y diversidad de fragmentos del modo mock; la revisión manual confirmó respaldo, pero la respuesta extractiva puede incluir contexto recuperado innecesario.
 - Calibrar `MIN_EVIDENCE_SCORE` por dominio.
 - Incorporar fuentes públicas adicionales de SUSESO/CMF solo después de estabilizar y revisar el corpus inicial.
 
