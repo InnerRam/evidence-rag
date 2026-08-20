@@ -1,0 +1,18 @@
+# EvidenceRAG only. Install as /etc/sudoers.d/evidence-rag (root:root, 0440).
+Cmnd_Alias EVIDENCE_RAG_OPS = \
+    /usr/local/sbin/evidence-rag-ops config, \
+    /usr/local/sbin/evidence-rag-ops status, \
+    /usr/local/sbin/evidence-rag-ops logs, \
+    /usr/local/sbin/evidence-rag-ops health, \
+    /usr/local/sbin/evidence-rag-ops tests, \
+    /usr/local/sbin/evidence-rag-ops build, \
+    /usr/local/sbin/evidence-rag-ops deploy, \
+    /usr/local/sbin/evidence-rag-ops seed-public, \
+    /usr/local/sbin/evidence-rag-ops smoke, \
+    /usr/local/sbin/evidence-rag-ops restart, \
+    /usr/local/sbin/evidence-rag-ops rollback
+
+Defaults!EVIDENCE_RAG_OPS env_reset, !set_home, \
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+codex-evidence ALL=(root) NOPASSWD: EVIDENCE_RAG_OPS

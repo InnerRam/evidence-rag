@@ -1,4 +1,4 @@
-.PHONY: up down seed-public prod-config prod-up prod-down prod-seed-public docker-test api-test api-lint web-check eval live-eval smoke
+.PHONY: up down seed-public prod-config prod-up prod-down prod-seed-public docker-test api-test api-lint web-check eval live-eval smoke ops-check
 
 LIVE_API_URL ?= http://localhost:8000/api/v1
 
@@ -46,3 +46,6 @@ live-eval:
 
 smoke:
 	python3 scripts/smoke_api.py
+
+ops-check:
+	python3 infra/ops/check_policy.py
