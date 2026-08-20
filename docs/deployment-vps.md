@@ -20,10 +20,10 @@ frontend; el seed dejó 388 páginas y 980 fragmentos, y el smoke verificó resp
 citada y rechazo sin evidencia.
 
 La comprobación externa del 2026-08-20 confirmó que ambos nombres resuelven al
-VPS, pero TLS todavía responde `unrecognized name`; por HTTP la web devuelve 200
-y la ruta health del host API devuelve 404. Esto sitúa el bloqueo en la
-configuración de los Proxy Hosts/certificados de Nginx Proxy Manager, no en el
-stack EvidenceRAG.
+VPS, presentan certificados Let's Encrypt válidos y sirven EvidenceRAG por
+HTTPS. `https://rag-api.citec.cl/health` devuelve base y proveedor mock en estado
+correcto. La web fuerza la redirección HTTP→HTTPS; el host API todavía acepta
+HTTP 200 y debe activar Force SSL antes del cierre público.
 
 El dato histórico de capacidad no se revalidó desde la cuenta restringida y no
 debe usarse para afirmar que el stack sigue pendiente: el despliegue healthy fue

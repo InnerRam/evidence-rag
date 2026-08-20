@@ -4,7 +4,7 @@
 
 - Stack de producción y conectividad interna de Nginx Proxy Manager confirmados.
 - Wrapper root-owned, gates Docker, seed público y smoke de producción completados.
-- Pendiente de evidencia final: publicar esta rama ya autorizada, corregir los Proxy Hosts/certificados de `rag.citec.cl` y `rag-api.citec.cl`, y ejecutar la evaluación live por HTTPS.
+- Pendiente de evidencia final: publicar esta rama ya autorizada, activar Force SSL en `rag-api.citec.cl` y ejecutar la evaluación live por HTTPS.
 - El cierre no requiere OpenAI: el proveedor mock mantiene la demo y los gates reproducibles sin secretos ni costo externo.
 
 ## Siguiente validación

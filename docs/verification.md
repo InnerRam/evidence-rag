@@ -28,7 +28,7 @@ Los porcentajes de evaluación pertenecen a datasets versionados y dirigidos. No
 - `codex-evidence` no puede atravesar `/home/adminuser` ni acceder al socket Docker. Esa separación fue comprobada directamente y es intencional.
 - Desde la cuenta no privilegiada solo se observaron Docker/Nginx activos y listeners 80/443; no se atribuyeron puertos o procesos ambiguos a EvidenceRAG ni se leyó `.env`.
 - El health de los tres servicios fue comprobado directamente mediante el wrapper delegado. La conectividad interna de NPM consta como validación confirmada por el operador porque NPM permanece deliberadamente fuera del alcance del wrapper.
-- `rag.citec.cl` y `rag-api.citec.cl` resuelven al VPS. La comprobación externa del 2026-08-20 encontró `unrecognized name` en TLS; por HTTP la web respondió 200 y `/health` del host API respondió 404. Los Proxy Hosts, certificados y Force SSL de NPM todavía requieren corrección administrativa.
+- `rag.citec.cl` y `rag-api.citec.cl` resuelven al VPS y presentan certificados Let's Encrypt válidos. La web pública sirve EvidenceRAG y fuerza HTTPS; el health HTTPS de la API devuelve `status=ok`, `database=ok` y `provider=mock`. El host API todavía acepta HTTP 200, por lo que Force SSL sigue pendiente.
 - El flujo OpenAI no forma parte del cierre mock y sigue sin clave compartida; sus métricas permanecen pendientes por decisión de alcance.
 - El wrapper y sudoers de `infra/ops/` fueron instalados como root-owned y validados mediante la cuenta delegada. El wrapper instalado coincide con SHA-256 `381b3b9de97567d809ac7ef5b31dbdd4b547050a994dc626bc1263eae90a3ca5`.
 
